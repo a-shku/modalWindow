@@ -1,16 +1,24 @@
 import { $ } from "../base";
 console.log("modal.ts imported");
+
 $.modal = (options: any) => {
+
     const $modal = _createModal(options);
 
+    const open = () => {
+        $modal.classList.add("open");
+    };
+    const close = () => {
+        $modal.classList.remove("open");
+    }
+    const destroy = () => {};
+
+    _closeHandler(close);
+
     return {
-        open() {
-            $modal.classList.add("open");
-        },
-        close() {
-            $modal.classList.remove("open");
-        },
-        destroy() { },
+        open,
+        close,
+        destroy,
     };
 };
 
@@ -44,4 +52,14 @@ function _createModal(options: any): any {
     document.body.appendChild(modal);
 
     return modal;
+};
+
+function _closeHandler(closeCallback: ()=>void) {
+    document.addEventListener('click', (event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+
+        if(target.classList.contains("modal-overlay")) {
+            closeCallback();
+        }
+    })
 };

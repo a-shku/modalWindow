@@ -1,11 +1,14 @@
 import "./index.scss";
-import { $ } from "./base";
+import  $  from "./plugins/index";
 
-// const modal = $.modal();
+console.log("hello0", $);
 
-// const obj = {
-//     asd: "",
-//     dsa: "" 
-// };
+const modal = $.modal();
 
-console.log("hello1", $);
+
+
+const $opener = document.querySelector("#openModal");
+
+$opener?.addEventListener("click", () => {
+    modal.open();
+})
